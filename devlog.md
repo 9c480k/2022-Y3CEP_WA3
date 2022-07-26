@@ -10,6 +10,7 @@
 > The development log will be graded for completion, detail, and honesty – not progress. It is much better to truthfully evaluate the work you completed in a week then lie to make the project sound further along then it really is. It is totally acceptable to have an entry that says you tried nothing and accomplished nothing. However if every week starts to say that, both yourself and your project mentor will be able to identify the issue before it becomes impossible to fix.
 
 ## Week 5 (26 Jul - 1 Aug)
+goal: create class diagram and create basic classes for objects (board, pieces) 
 
 ## Week 6 (2 Aug - 8 Aug)
 
@@ -22,3 +23,4 @@
 ## Week 10 (30 Aug - 5 Sep)
 
 ## Sep Holiday (5 Sep - 10 Sep) **Submission date is 10 Sep**
+goal: update class diagram (if necessary) 
