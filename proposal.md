@@ -32,7 +32,8 @@
 
 # [Development Log](/devlog.md)
 > You will be updating this section regularly
-> - Week 5 now!
+> - Week 5 now! <br>
+> goal: create class diagram and create basic classes for objects (board, pieces) 
 > - Week 6
 > - Week 7
 > - Week 8
