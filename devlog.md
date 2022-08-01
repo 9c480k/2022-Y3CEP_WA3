@@ -14,9 +14,10 @@
 ## Week 5 (26 Jul - 1 Aug)
 submission of project proposal <br>
 no progress made (feeling unwell from covid)
-
+did not meet goals, plan to have working game by next week (without win determination system)
 ## Week 6 (2 Aug - 8 Aug)
-Tuesday:
+Monday: fiddling around with github and learning how to commit from vs code 
+Tuesday: 
 
 ## Week 7 (9 Aug - 15 Aug)
 
