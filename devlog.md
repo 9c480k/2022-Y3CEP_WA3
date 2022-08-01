@@ -12,11 +12,11 @@
 [Example of Good/Bad Changelist descriptions](https://google.github.io/eng-practices/review/developer/cl-descriptions.html)
 
 ## Week 5 (26 Jul - 1 Aug)
-submission of project proposal 
+submission of project proposal <br>
 no progress made (feeling unwell from covid)
 
 ## Week 6 (2 Aug - 8 Aug)
-Monday: 
+Tuesday:
 
 ## Week 7 (9 Aug - 15 Aug)
 
