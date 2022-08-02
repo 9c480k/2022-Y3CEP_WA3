@@ -17,7 +17,8 @@ no progress made (feeling unwell from covid)
 did not meet goals, plan to have working game by next week (without win determination system)
 ## Week 6 (2 Aug - 8 Aug)
 Monday: fiddling around with github and learning how to commit from vs code 
-Tuesday: 
+Tuesday: partial implementation of piece placement (pieces do not flip others when they are placed yet) 
+        decided not to implement black and white pieces as objects and instead give tiles colour as an attribute 
 
 ## Week 7 (9 Aug - 15 Aug)
 
