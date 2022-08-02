@@ -12,10 +12,9 @@ class Tile():
             self.appearance = "|X|"
         elif pieceColour == "white":
             self.appearance = "|Y|"
-            
+
         self.colour = pieceColour
         self.occupied = True
-
 
     def __repr__(self):
         return self.appearance 
