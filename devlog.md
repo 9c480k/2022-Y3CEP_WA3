@@ -20,6 +20,7 @@ Monday: fiddling around with github and learning how to commit from vs code
 Tuesday: partial implementation of piece placement (pieces do not flip others when they are placed yet) 
         decided not to implement black and white pieces as objects and instead give tiles colour as an attribute 
 Saturday: game mechanics fully implemented (pieces flip each other now), but does not have ui 
+Sunday: quick fix to a bug that would have allowed user to place pieces on occupied tiles
 ## Week 7 (9 Aug - 15 Aug)
 
 ## Week 8 (16 Aug - 22 Aug)

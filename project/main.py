@@ -167,12 +167,13 @@ class Deck():
         #returns the tile at the particular position on the board
         return self.deck[row][column]
         
-    def placePiece(self, column, row, pieceColour):
-        #implement safeguards for user input 
-        validMoveCheck(self.deck, column, row)
+    def placePiece(self, column, row, pieceColour):     
         selectedTile = self.retrieveTile(column, row)
-        selectedTile.assignPiece(pieceColour)
-        leftCheck(self.deck, column, row, pieceColour)
+        if selectedTile.occupied == True or validMoveCheck(self.deck, column, row) == False: 
+            return
+        else: 
+            selectedTile.assignPiece(pieceColour)
+            
         rightCheck(self.deck, column, row, pieceColour)
         upCheck(self.deck, column, row, pieceColour)
         downCheck(self.deck, column, row, pieceColour)
