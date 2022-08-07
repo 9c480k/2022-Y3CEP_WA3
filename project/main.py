@@ -21,12 +21,14 @@ class Tile():
         return self.appearance 
 
 def validMoveCheck(deck, column, row):
-    if ((deck[row][column-1]).occupied == False) or ((deck[row+1][column+1]).occupied == False): 
-            return False 
+    if ((deck[row][column-1]).occupied == True) or ((deck[row+1][column+1]).occupied == True): 
+            return True
 
     for i in range(3):
-        if ((deck[row-1][column-1+i]).occupied == False) or ((deck[row+1][column-1+i]).occupied == False): 
-            return False 
+        if ((deck[row-1][column-1+i]).occupied == True) or ((deck[row+1][column-1+i]).occupied == True): 
+            return True
+
+    return False
     
 
 def leftCheck(deck, column, row, pieceColour):
@@ -173,7 +175,7 @@ class Deck():
             return
         else: 
             selectedTile.assignPiece(pieceColour)
-            
+
         rightCheck(self.deck, column, row, pieceColour)
         upCheck(self.deck, column, row, pieceColour)
         downCheck(self.deck, column, row, pieceColour)
