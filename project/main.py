@@ -32,10 +32,10 @@ def validMoveCheck(deck, column, row):
     
 
 def leftCheck(deck, column, row, pieceColour):
-    changeList = []
+    changeList = []    
     for i in (deck[row][column-1::-1]):
         if (i.occupied == True):            
-            if (i.colour == pieceColour):
+            if (i.colour == pieceColour):                
                 [j.assignPiece(pieceColour) for j in changeList]
             else: 
                 changeList.append(i)
@@ -159,7 +159,8 @@ def bottomLeftDiagonalCheck(deck, column, row, pieceColour, deckSize = 8):
             break   
 
 class Deck():
-    def __init__(self, size = 8):
+    def __init__(self, gameController, size = 8 ):
+        self.gameController = gameController
         self.deck = []
         for i in range(size):
             self.deck.append([Tile() for j in range(size)])
@@ -169,13 +170,15 @@ class Deck():
         #returns the tile at the particular position on the board
         return self.deck[row][column]
         
-    def placePiece(self, column, row, pieceColour):     
-        selectedTile = self.retrieveTile(column, row)
-        if selectedTile.occupied == True or validMoveCheck(self.deck, column, row) == False: 
-            return
+    def placePiece(self, column, row, pieceColour):            
+        selectedTile = self.retrieveTile(column, row)  
+        if (selectedTile.occupied == True or validMoveCheck(self.deck, column, row) == False) and (self.gameController).turnCount != 1: #bug: does not work for first move  
+            return False
         else: 
             selectedTile.assignPiece(pieceColour)
+            self.gameController.changeTurn()
 
+        leftCheck(self.deck, column, row, pieceColour)
         rightCheck(self.deck, column, row, pieceColour)
         upCheck(self.deck, column, row, pieceColour)
         downCheck(self.deck, column, row, pieceColour)
@@ -193,14 +196,37 @@ class Deck():
             print(i)
         return ""
 
+class gameControl():
+    def __init__(self, player1, player2):        
+        self.player1 = player1
+        self.player2 = player2
+        self.turn = "player1"
+        self.turnCount = 1
+
+    def gameStats(self):
+        pass
+
+    def changeTurn(self):
+        if (self.turnCount) % 2 == 1: 
+            self.turn = "player2"            
+        else: 
+            self.turn = "player1"
+
+        self.turnCount += 1 
+    
+
+class Player():
+    pass
+
     
 
 
 
    
-
-
-x = Deck()
+y = Player()
+z = Player()
+gameController = gameControl(y, z)
+x = Deck(gameController)
 x.placePiece(1, 2, "black")
 x.placePiece(2, 2, "white")
 x.placePiece(3, 2, "black")
@@ -210,6 +236,8 @@ x.placePiece(2, 1, "black")
 x.placePiece(4, 3, "black")
 x.placePiece(0, 2, "white")
 x.placePiece(4, 2, "white")
+
+
 
 
 

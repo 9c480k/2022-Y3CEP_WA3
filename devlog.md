@@ -22,6 +22,8 @@ Tuesday: partial implementation of piece placement (pieces do not flip others wh
 Saturday: game mechanics fully implemented (pieces flip each other now), but does not have ui 
 Sunday: quick fix to a bug that would have allowed user to place pieces on occupied tiles, fixed move checking function
 ## Week 7 (9 Aug - 15 Aug)
+goal: full game (game works fully with win determination and basic text interface)
+Monday: fixing of some bugs, beginning to implement game controller object to control player turns 
 
 ## Week 8 (16 Aug - 22 Aug)
 
