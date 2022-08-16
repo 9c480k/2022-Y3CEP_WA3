@@ -1,10 +1,10 @@
 #deck object made of tile objects 
 #black and white pieces as objects 
 #use 2d lists/dicts
-
+#balls 
 
 class Tile():
-    def __init__(self):
+    def __init__(self): 
         self.appearance = "|-|"
         self.occupied = False
 
