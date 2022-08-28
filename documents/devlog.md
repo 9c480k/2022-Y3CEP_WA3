@@ -13,22 +13,24 @@
 
 ## Week 5 (26 Jul - 1 Aug)
 submission of project proposal <br>
-no progress made (feeling unwell from covid)
-did not meet goals, plan to have working game by next week (without win determination system)
+no progress made (feeling unwell from covid) <br>
+did not meet goals, plan to have working game by next week (without win determination system)<br>
 ## Week 6 (2 Aug - 8 Aug)
-Monday: fiddling around with github and learning how to commit from vs code 
-Tuesday: partial implementation of piece placement (pieces do not flip others when they are placed yet) 
-        decided not to implement black and white pieces as objects and instead give tiles colour as an attribute 
-Saturday: game mechanics fully implemented (pieces flip each other now), but does not have ui 
-Sunday: quick fix to a bug that would have allowed user to place pieces on occupied tiles, fixed move checking function
+Monday: fiddling around with github and learning how to commit from vs code <br>
+Tuesday: partial implementation of piece placement (pieces do not flip others when they are placed yet) <br>
+decided not to implement black and white pieces as objects and instead give tiles colour as an attribute <br>
+Saturday: game mechanics fully implemented (pieces flip each other now), but does not have ui <br>
+Sunday: quick fix to a bug that would have allowed user to place pieces on occupied tiles, fixed move checking function<br>
 ## Week 7 (9 Aug - 15 Aug)
-goal: full game (game works fully with win determination and basic text interface)
-Monday: fixing of some bugs, beginning to implement game controller object to control player turns 
+goal: full game (game works fully with win determination and basic text interface)<br>
+Monday: fixing of some bugs, beginning to implement game controller object to control player turns <br>
 
 ## Week 8 (16 Aug - 22 Aug)
+working on firebase<br>
+progress now deleted, decided on week 9 to use google api to edit a online google sheets (it would serve as a log where players could view each others stats and i dont need to make a frontend using html)<br>
 
 ## Week 9 (23 Aug - 29 Aug)
-
+using google api and pandas to retrieve, sort and store user data on a online google sheets<br>
 ## Week 10 (30 Aug - 5 Sep)
 
 ## Sep Holiday (5 Sep - 10 Sep) **Submission date is 10 Sep**

@@ -1,4 +1,6 @@
-import main.py as main
+import main
+import storage 
+
 
 print("Welcome to a game of Othello!")
 usernameList = ["username"]
@@ -36,7 +38,7 @@ else:
             elif str(username) != True:
                 raise ValueError()
         except ValueError:
-            print("your usernmae is not valid. Please try again")
+            print("your username is not valid. Please try again")
         except TypeError:
             print("your username is already linked to an account.")
         else:
@@ -58,8 +60,8 @@ class Player():
    
 y = Player()
 z = Player()
-gameController = gameControl(y, z)
-x = Deck(gameController)
+gameController = main.gameControl(y, z)
+x = main.Deck(gameController)
 x.placePiece(1, 2, "black")
 x.placePiece(2, 2, "white")
 x.placePiece(3, 2, "black")

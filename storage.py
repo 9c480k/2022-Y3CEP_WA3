@@ -1,7 +1,8 @@
-#https://medium.com/daily-python/python-script-to-edit-google-sheets-daily-python-7-aadce27846c0 used this tutorial as reference 
+#https://www.analyticsvidhya.com/blog/2020/07/read-and-update-google-spreadsheets-with-python/? used this tutorial as reference 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pprint
+import pandas as pd 
+
 
 
 #Authorize the API
@@ -16,5 +17,5 @@ client = gspread.authorize(credentials)
 
 sheet = client.open('Othello Playerbase Log').sheet1
 python_sheet = sheet.get_all_records()
-pp = pprint.PrettyPrinter()
-pp.pprint(python_sheet)
+data_df = pd.DataFrame.from_dict(python_sheet)
+print(data_df)
