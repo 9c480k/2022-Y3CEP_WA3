@@ -10,9 +10,9 @@ class Tile():
 
     def assignPiece(self, pieceColour):
         if pieceColour == "black":
-            self.appearance = "|X|"
+            self.appearance = "|●|"
         elif pieceColour == "white":
-            self.appearance = "|O|"
+            self.appearance = "|○|"
 
         self.colour = pieceColour
         self.occupied = True

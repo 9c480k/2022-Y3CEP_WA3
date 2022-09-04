@@ -1,4 +1,4 @@
-import main
+import game
 import storage 
 
 
@@ -48,7 +48,11 @@ else:
 
 
 
+class UsernameChecker():
+    pass 
 
+class PasswordChecker(UsernameChecker):
+    pass
 
 class Player():
     pass
@@ -60,8 +64,8 @@ class Player():
    
 y = Player()
 z = Player()
-gameController = main.gameControl(y, z)
-x = main.Deck(gameController)
+gameController = game.gameControl(y, z)
+x = game.Deck(gameController)
 x.placePiece(1, 2, "black")
 x.placePiece(2, 2, "white")
 x.placePiece(3, 2, "black")
