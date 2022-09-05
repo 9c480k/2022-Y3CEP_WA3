@@ -55,7 +55,7 @@ def addUsername(username, password):
 
 def checkPassword(username, password):
     correctPassword = accountDf.loc[username, "Password"]
-    if password == '' or password != correctPassword: 
+    if password != correctPassword: 
         return False 
     else: 
         return True 
@@ -91,8 +91,8 @@ def saveData():
     set_with_dataframe(passwordSheet, accountDf, row = 1, col = 1, resize = True)
     refreshData()
 
-        
 
+    
 
 
 refreshData()
@@ -104,4 +104,6 @@ saveData()
 
 
 #local game save 
+
+
 

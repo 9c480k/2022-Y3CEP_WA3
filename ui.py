@@ -2,76 +2,177 @@ import game
 import storage 
 
 
-print("Welcome to a game of Othello!")
-usernameList = ["username"]
-while True:
-    try:
-        accountCheck = bool(input("Do you have an account? True/False"))
-    except ValueError:
-        print("Please try again. Enter True/False (capital letter included")
-    else:
-        break
-if accountCheck == True:
-    while True:
-        try:
-            username = input("please enter your username")
-            username in usernameList
-        except ValueError:
-            print("please try again")
-        else:
-            break
-    while True:
-        try:
-            password = input("please enter your password")
-            password in passwordList
-            #make sure that usernames and passwords are matching 
-        except ValueError:
-            print("please try again")
-        else:
-            break
-else:
-    while True:
-        try:
-            username = input("enter your username")
-            if username in usernameList:
-                raise TypeError()
-            elif str(username) != True:
-                raise ValueError()
-        except ValueError:
-            print("your username is not valid. Please try again")
+
+
+
+def createAccount():
+
+    while True: 
+        try: 
+            username = input("Enter the username you want to use.")
+            if username == "q":
+                login()
+            elif storage.checkUsername == True: 
+                raise TypeError
+            else: 
+                try:
+                    password = input("Enter the password you want to use. Your password should be at least 8 letters long")
+                    if password == "q":
+                        login()
+                    elif len(password) >= 8 == False: 
+                        raise ValueError 
+                    
+                except ValueError:
+                    print("Your password needs to be at least 8 letters long. If you have forgotten your password, press q to make a new account")
+                
+                else: 
+                    break 
+            
+            
         except TypeError:
-            print("your username is already linked to an account.")
+            print("Your username has already been registered. Type q to exit and login or try using a different username") 
+        
+        else: 
+            storage.addUsername(username, password)
+            return username
+
+
+def login():   
+
+    while True: 
+        try: 
+            username = input("What is your username?")
+            if username == "q":
+                createAccount() 
+            elif storage.checkUsername == False: 
+                raise ValueError 
+            else:
+                try: 
+                    password = input("What is your password?")
+                    if password == "q":
+                        createAccount()
+                    elif storage.checkPassword == True: 
+                        print(f"Successfully logged in as {username}")
+                    else: 
+                        raise TypeError
+
+                except TypeError:
+                    print("Your password does not match this account. Please try again, or press q to make a new account")
+
+                else: 
+                    break
+
+        except ValueError:
+            print("Your username was not found. Plase try again, or press q to make a new account.")
+
+        else: 
+            return username
+
+
+class Player():
+    def __init__(self, username, turn):
+        self.username = username 
+        self.turn = turn 
+        if turn == 1: 
+            self.colour = "white"
+        else: 
+            self.colour = "black"
+    
+
+            
+storage.refreshData()
+global player1
+global player2
+
+
+print("Welcome to a game of Othello!")
+
+for i in range(2):    
+    while True:
+        try:
+            accountCheck = bool(input("Do you have an account? True/False").strip())
+        except ValueError:
+            print("Please try again. Enter True/False (capital letter included)")
         else:
             break
+
+    if accountCheck == True: 
+        username = login()
+    else: 
+        username = createAccount()
+
+    if i == 1: 
+        try: 
+            turnCheck = input("Would you like to go first? y/n")
+            if turnCheck == "y": 
+                player1 = Player(username, 1)
+            elif turnCheck == "n": 
+                player1 = Player(username, 2)
+            else: 
+                raise ValueError
+
+        except ValueError: 
+            print("Please provide valid input") 
+
+
+    else: 
+        if player1.turn == 1: 
+            player2 = Player(username, 2)
+        else: 
+            player2 = Player(username, 1)
+
+gameController = game.gameControl(player1, player2)
+board = game.Deck(gameController)
+
+
+for i in range(65):    
+    if gameController.turnCount == 65: 
+        gameController.gameEnd()
+        if gameController.winner == "draw": 
+            print("The game ended in a draw! Both players lose")
+            storage.changeStoredStats(player1.username, "gl")
+            storage.changeStoredStats(player2.username, "gl")
+
+        else:             
+            print(f"The winner of this game is {gameController.winner}")
+            storage.changeStoredStats(gameController.winner, "gw")
+            if gameController.winner == player1.username:                
+                storage.changeStoredStats(player2.username, "gl") 
+            else:                 
+                storage.changeStoredStats(player1.username, "gl")
+
+        break 
+
+    if gameController.turn == player1.username: 
+        currentUser = player1.username
+    else: 
+        currentUser = player2.username
+
+
+    try: 
+        print(f"It is now {currentUser}'s turn! Please enter the column and row of your move in the format columnrow (e.g. 12).")
+        
+    except ValueError: 
+        pass
+
+    gameController.changeTurn()
+
+
+
+
+    
+
+
             
 
 
 
 
-class UsernameChecker():
-    pass 
 
-class PasswordChecker(UsernameChecker):
-    pass
 
-class Player():
-    pass
 
     
 
 
 
-   
-y = Player()
-z = Player()
-gameController = game.gameControl(y, z)
-x = game.Deck(gameController)
-x.placePiece(1, 2, "black")
-x.placePiece(2, 2, "white")
-x.placePiece(3, 2, "black")
-x.placePiece(3, 3, "white")
-x.placePiece(3, 1, "white")
-x.placePiece(2, 1, "black")
-x.placePiece(4, 3, "black")
-x.placePiece(0, 2, "white")
-x.placePiece(4, 2, "white")
+

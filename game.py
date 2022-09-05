@@ -158,6 +158,8 @@ def bottomLeftDiagonalCheck(deck, column, row, pieceColour, deckSize = 8):
         else: 
             break   
 
+
+
 class Deck():
     def __init__(self, gameController, size = 8 ):
         self.gameController = gameController
@@ -198,21 +200,27 @@ class Deck():
 
 class gameControl():
     def __init__(self, player1, player2):        
-        self.player1 = player1
-        self.player2 = player2
-        self.turn = "player1"
-        self.turnCount = 1
+        if player1.turn == 1: 
+            self.first = player1.username
+            self.second = player2.username
+        else: 
+            self.first = player2.username
+            self.second = player1.username
 
-    def gameStats(self):
-        pass
+        self.turnCount = 1
 
     def changeTurn(self):
         if (self.turnCount) % 2 == 1: 
-            self.turn = "player2"            
+            self.turn = self.second            
         else: 
-            self.turn = "player1"
+            self.turn = self.first
 
         self.turnCount += 1 
+
+    def gameEnd(self): 
+        pass
+    
+
     
 
 
