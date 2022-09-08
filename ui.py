@@ -122,8 +122,18 @@ for i in range(2):
             player2 = Player(username, 1)
 
 gameController = game.gameControl(player1, player2)
-board = game.Deck(gameController)
-
+board = game.Deck
+while True: 
+    try: 
+        input = input("There is a save loaded locally. Continue? (y/n)")
+        if input == "n": 
+            break 
+        elif input == "y": 
+            gameController.retrieveGame()
+        else: 
+            raise ValueError
+    except ValueError: 
+        print("Please provide valid input.")
 
 for i in range(65):    
     if gameController.turnCount == 65: 
@@ -145,17 +155,34 @@ for i in range(65):
 
     if gameController.turn == player1.username: 
         currentUser = player1.username
+        currentColour = "white"
     else: 
         currentUser = player2.username
+        currentColour = "black"
 
+    while True: 
+        try: 
+            print(f"It is now {currentUser}'s turn!")
+            print("If you would like to quit and save your game, type q")
+            input = input("Please enter the column and row of your move in the format columnrow (e.g. 12).")
+            if input == "q": 
+                pass
+            elif input.isnumeric() == False: 
+                raise ValueError
+            else: 
+                try: 
+                    if board.placePiece(int(input[0]), int(input[1]), currentColour) == False: 
+                        raise TypeError
+                    else: 
+                        break
 
-    try: 
-        print(f"It is now {currentUser}'s turn! Please enter the column and row of your move in the format columnrow (e.g. 12).")
+                except TypeError: 
+                    print("Tile not available. Try another move.")
         
-    except ValueError: 
-        pass
+        except ValueError: 
+            print("Please provide valid input.")
 
-    gameController.changeTurn()
+   
 
 
 
