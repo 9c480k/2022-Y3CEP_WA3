@@ -32,8 +32,7 @@ progress now deleted, decided on week 9 to use google api to edit a online googl
 ## Week 9 (23 Aug - 29 Aug)
 using google api and pandas to retrieve, sort and store user data on a online google sheets<br>
 ## Week 10 (30 Aug - 5 Sep)
-working on implementing ui, basic user interaction with game 
+working on implementing ui, basic user interaction with game, win determination system
 
 ## Sep Holiday (5 Sep - 10 Sep) **Submission date is 10 Sep**
-working on implementing local save system 
-Adding comments 
+working on implementing local save system, adding comments 
