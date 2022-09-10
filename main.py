@@ -5,6 +5,7 @@ import storage
 
 
 
+
 '''side note here
 if all the imports are not working, using 'pip install gspread, gspread_dataframe, oauth2client, pandas' should work '''
 
@@ -12,7 +13,7 @@ def createAccount():
 
     while True: 
         try: 
-            username = input("\nEnter the username you want to use.")
+            username = input("\nEnter the username you want to use (or type q to login):")
             if username == "q":
                 return login()
             elif storage.checkUsername(username) == True: 
@@ -27,7 +28,7 @@ def createAccount():
 
     while True: 
         try:
-            password = input("Enter the password you want to use. Your password should be at least 8 letters long:")
+            password = input("\nEnter the password you want to use. Your password should be at least 8 letters long:")
             if password == "q":
                 return login()
             elif (len(password) >= 8) == False: 
@@ -49,7 +50,7 @@ def login():
 
     while True: 
         try: 
-            username = input("\nWhat is your username?")
+            username = input("\nWhat is your username? (type q to to make a new account)")
             if username == "q":
                 return createAccount() 
             elif storage.checkUsername(username) == False: 
@@ -63,7 +64,7 @@ def login():
             break 
     while True:
         try: 
-            password = input("What is your password?")
+            password = input("\nWhat is your password? (type q to make a new account)")
             if password == "q":
                 return createAccount()
             elif storage.checkPassword(username, password) == True: 
@@ -98,7 +99,8 @@ currentPlayers = []
 
 
 print("Welcome to a game of Othello!")
-
+print("\nVisit README.md at https://github.com/9c480k/2022-Y3CEP_WA3/blob/main/documents/README.md for links to the playerbase log, as well as other useful information")
+print("\nProceeding to user login and registration...\n")
 for i in range(2):    
     while True:
         try:
@@ -121,7 +123,8 @@ for i in range(2):
                 else: 
                     break
 
-            except ValueError: 
+            except ValueError:
+                print("Successful login rejected.") 
                 print("The user is currently logged in. Sign in as another user")
     else: 
         username = createAccount()
@@ -143,7 +146,7 @@ for i in range(2):
                 print("Please provide valid input") 
 
         currentPlayers.append(player1.username)
-        print("\nProceeding to login for second player.")
+        print("\nProceeding to login for second player.\n")
 
 
     else: 
@@ -160,49 +163,53 @@ gameController = game.gameControl(player1, player2, board)
 print("Saving data...")
 storage.saveData()
 
-
+gameController.rules()
+print("\n")
 #automatically retrieves saves if there are any 
 gameController.retrieveGame()
 
 
 
+
 exit = False
 #game loop 
-for i in range(65):        
-    if gameController.turnCount == 65 or gameController.passEnd == True: 
+for i in range(61):        
+    if gameController.turnCount == 61 or gameController.passEnd == True: 
         gameController.gameEnd()
         if gameController.winner == "draw": 
-            print("The game ended in a draw! Both players lose")
-            storage.changeStoredStats(player1.username, "gl")
-            storage.changeStoredStats(player2.username, "gl")
+            print("The game ended in a draw! Both players lose.")
+            storage.changeStoredStats(gameController.first, "gl")
+            storage.changeStoredStats(gameController.second, "gl")
 
         else:             
             print(f"The winner of this game is {gameController.winner}")
             storage.changeStoredStats(gameController.winner, "gw")
-            if gameController.winner == player1.username:                
-                storage.changeStoredStats(player2.username, "gl") 
+
+            if gameController.winner == gameController.first:                
+                storage.changeStoredStats(gameController.second, "gl") 
             else:                 
-                storage.changeStoredStats(player1.username, "gl")
+                storage.changeStoredStats(gameController.first, "gl")
 
         print("Game ended. Updating database...")
         storage.saveData()
         break   
 
     
+    currentUser = gameController.turn
 
-    if gameController.turn == player1.username: 
-        currentUser = player1.username
+    if currentUser == player1.username: 
+        
         currentColour = player1.colour
-    else: 
-        currentUser = player2.username
+    else:         
         currentColour = player2.colour
 
     print(f"\nIt is now {currentUser}'s turn!\n")
 
     while True: 
         try:             
-            print(board)            
+            print(board)                       
             print("If you would like to quit and save your game, type q. If you would like to pass, press p")
+            print("If you would like to revisit the rules, type r")
             move = input("\nPlease enter the column and row of your move in the format columnrow (e.g. 12):")  
 
             if move == "q":                 
@@ -211,20 +218,23 @@ for i in range(65):
             elif move == "p": 
                 gameController.skip()
                 break
-
-            elif move.isnumeric() == False: 
+            elif move == "r":
                 raise ValueError
+            elif move.isnumeric() == False: 
+                raise TypeError
 
             elif board.placePiece(int(move[0]), int(move[1]), currentColour) == False: 
-                raise TypeError
+                raise Exception
              
             break        
                 
+        except ValueError:
+            gameController.rules()           
         
-        except ValueError: 
+        except TypeError: 
             print("\n\nPlease provide valid input.")
 
-        except TypeError: 
+        except Exception: 
             print("\n\nTile not available. Try another move.")
 
     if exit == True: 

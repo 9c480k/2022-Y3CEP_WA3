@@ -2,7 +2,7 @@
 #black and white pieces as objects 
 #use 2d lists/dicts
 import gameSave
-
+from time import sleep
 
 class Tile():
     def __init__(self): 
@@ -23,9 +23,9 @@ class Tile():
 
 def isNextToTile(deck, column, row):
     if row == 0: #top row
-        if column == 0 and ((deck[row+1][column]).occupied == True or (deck[row][column+1]).occupied == True):
+        if column == 0 and ((deck[row+1][column]).occupied == True or (deck[row][column+1]).occupied == True or (deck[row+1][column+1]).occupied == True):
             return True 
-        elif column == 7 and ((deck[row+1][column]).occupied == True or (deck[row][column-1]).occupied == True):
+        elif column == 7 and ((deck[row+1][column]).occupied == True or (deck[row][column-1]).occupied == True or (deck[row+1][column-1]).occupied == True):
             return True
         elif column != 0 and column != 7: 
             if ((deck[row][column-1]).occupied == True) or ((deck[row][column+1]).occupied == True): 
@@ -36,9 +36,9 @@ def isNextToTile(deck, column, row):
                     return True
             
     elif row == 7: #bottom row 
-        if column == 0 and ((deck[row-1][column]).occupied == True or (deck[row][column+1]).occupied == True):
+        if column == 0 and ((deck[row-1][column]).occupied == True or (deck[row][column+1]).occupied == True or deck[row-1][column+1].occupied == True):
             return True 
-        elif column == 7 and ((deck[row-1][column]).occupied == True or (deck[row][column-1]).occupied == True):
+        elif column == 7 and ((deck[row-1][column]).occupied == True or (deck[row][column-1]).occupied == True or deck[row-1][column-1].occupied == True):
             return True
         elif column != 0 and column != 7: 
 
@@ -77,54 +77,7 @@ def isNextToTile(deck, column, row):
     return False
     
 
-def leftCheck(board, deck, column, row, pieceColour):
-    selection = []
-    for i in (deck[row][column-1::-1]):
-        selection.append(i)
-
-    changeList = []  
-    for i in selection:
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:                               
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break        
-
-def rightCheck(board, deck, column, row, pieceColour): 
-    selection = []    
-    for i in (deck[row][column+1:]):
-        selection.append(i)
-
-    changeList = []
-    for i in selection:
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:                
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True                
-                break
-
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break 
-
-def upCheck(board, deck, column, row, pieceColour):
-    selection = []
-   
-    for i in (range(row)):
-        if (row-1-i) == -1: 
-            break
-        else:
-            selection.append(deck[row-1-i][column])
-   
+def implementer(selection, pieceColour, board):
     changeList = []
     for i in (selection):
         if (i.occupied == True):            
@@ -138,6 +91,32 @@ def upCheck(board, deck, column, row, pieceColour):
                 changeList.append(i)
         else: 
             break   
+
+def leftCheck(board, deck, column, row, pieceColour):
+    selection = []
+    for i in (deck[row][column-1::-1]):
+        selection.append(i)
+
+    implementer(selection, pieceColour, board)
+
+
+def rightCheck(board, deck, column, row, pieceColour): 
+    selection = []    
+    for i in (deck[row][column+1:]):
+        selection.append(i)
+
+    implementer(selection, pieceColour, board)
+
+def upCheck(board, deck, column, row, pieceColour):
+    selection = []
+   
+    for i in (range(row)):
+        if (row-1-i) == -1: 
+            break
+        else:
+            selection.append(deck[row-1-i][column])
+   
+    implementer(selection, pieceColour, board)
     
 
 def downCheck(board, deck, column, row, pieceColour, deckSize =8):
@@ -147,23 +126,11 @@ def downCheck(board, deck, column, row, pieceColour, deckSize =8):
         if (row+1+1) > 7: 
             break
         else:
-            selection.append(deck[row+1+i][column])
-    
+            selection.append(deck[row+1+i][column])   
         
 
-    changeList = []
-    for i in (selection):
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break   
+    implementer(selection, pieceColour, board)
+
 
 def topLeftDiagonalCheck(board, deck, column, row, pieceColour): 
     if column == 0 or column == 1: 
@@ -177,19 +144,7 @@ def topLeftDiagonalCheck(board, deck, column, row, pieceColour):
                 selection.append(deck[row-1-i][column-1-i])
 
     
-    changeList = []
-    for i in (selection):
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break   
+    implementer(selection, pieceColour, board)
 
 def bottomRightDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8): 
     if column == deckSize-1 or column == deckSize -2 : 
@@ -203,22 +158,11 @@ def bottomRightDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8
                 selection.append(deck[row+1+i][column+1+i])
         
 
-    changeList = []
-    for i in (selection):
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break   
+    implementer(selection, pieceColour, board)
+
 
 def topRightDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8):     
-    if column == deckSize-1 or column == deckSize - 2: 
+    if column == 7 or column == 6: 
         return 
     
     else:
@@ -229,19 +173,8 @@ def topRightDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8):
             else:
                 selection.append(deck[row-1-i][column+1+i])
 
-    changeList = []
-    for i in (selection):
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break 
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break   
+    implementer(selection, pieceColour, board)
+
 
 def bottomLeftDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8):    
     if column == 0 or column == 1: 
@@ -257,19 +190,7 @@ def bottomLeftDiagonalCheck(board, deck, column, row, pieceColour, deckSize = 8)
         
 
     
-    changeList = []
-    for i in selection:
-        if (i.occupied == True):            
-            if (i.colour == pieceColour) and changeList != []:
-                [j.assignPiece(pieceColour) for j in changeList]
-                board.captured = True
-                break 
-            elif i.colour == pieceColour: 
-                break
-            else: 
-                changeList.append(i)
-        else: 
-            break   
+    implementer(selection, pieceColour, board)
 
 
 
@@ -279,10 +200,10 @@ class Deck:
         for i in range(size):
             self.deck.append([Tile() for j in range(size)])
 
-        self.retrieveTile(3, 3).assignPiece("black")
-        self.retrieveTile(4, 2).assignPiece("black")
-        self.retrieveTile(3, 2).assignPiece("white")
-        self.retrieveTile(4, 3).assignPiece("white")
+        self.retrieveTile(3, 4).assignPiece("black")
+        self.retrieveTile(4, 3).assignPiece("black")
+        self.retrieveTile(3, 3).assignPiece("white")
+        self.retrieveTile(4, 4).assignPiece("white")
                   
         
 
@@ -294,6 +215,7 @@ class Deck:
         self.captured = False          
         selectedTile = self.retrieveTile(column, row)  
         if (selectedTile.occupied == True or isNextToTile(self.deck, column, row) == False): #bug: does not work for first move  
+            print(isNextToTile(self.deck, column, row) == False)
             return False
         else:         
             
@@ -306,7 +228,7 @@ class Deck:
             bottomLeftDiagonalCheck(self,self.deck, column, row, pieceColour)
             bottomRightDiagonalCheck(self,self.deck, column, row, pieceColour)             
         
-            if self.captured == False: 
+            if self.captured == False:                 
                 return False
             else: 
                 selectedTile.assignPiece(pieceColour)
@@ -353,23 +275,24 @@ class gameControl(gameSave.saveStorer):
         else:             
             self.ongoing = True 
             self.turnCount = int(self.output[len(self.output)-1])
-            dataList = list(self.output[len(self.output)-2])
-            self.first, self.second, self.turn = dataList[0], dataList[1], dataList[2]            
+            dataList = self.output[len(self.output)-2].split(",")            
+            self.first, self.second, self.turn = dataList[0], dataList[1], dataList[2]                  
             self.output = self.output[:len(self.output)-2]
 
             
             self.output = self.output[0]
-            self.output = self.output.split(",")
+            self.output = self.output.split(",")            
             self.save = []
             row = []
 
             for i in self.output:
-                if len(row) == 8:                     
-                    self.save.append(row)
+                if len(row) == 8:                                        
+                    self.save.append(row)                    
                     row = []
                     
+                    
                 if i == "|-|":
-                    row.append(Tile())
+                    row.append(Tile())                    
                     
                 elif i == "O": 
                     x = Tile()
@@ -381,9 +304,12 @@ class gameControl(gameSave.saveStorer):
                     x.assignPiece('black')
                     row.append(x)
 
-            print(self.save)
-            self.board.deck = self.save
-        
+
+            self.save.append(row)
+            self.board.deck = self.save            
+            print("Save retrieved.")
+            sleep(2)
+
 
     def save(self): 
         self.saveGame(self.board.deck, self.first, self.second, self.turn, self.turnCount)
@@ -406,15 +332,16 @@ class gameControl(gameSave.saveStorer):
     def gameEnd(self): 
         self.user1Score = 0 
         self.user2Score = 0 
+        self.winner = ""
         for i in self.board.deck:
             for j in i: 
                 if repr(j) == "|-|":
                     pass
                 elif repr(j) == "|○|":
-                    self.user2Score += 1 
+                    self.user1Score += 1 
     
                 elif repr(j) == "|●|": 
-                    self.user1Score += 1 
+                    self.user2Score += 1 
                 
         if self.user1Score > self.user2Score: 
             self.winner = self.first 
@@ -422,6 +349,24 @@ class gameControl(gameSave.saveStorer):
             self.winner =  self.second 
         elif self.user2Score == self.user1Score: 
             self.winner = "draw"  
+
+
+    def rules(self):
+        print("\nIn Othello, black (|○|) goes first, followed by white (|●|)")
+        sleep(2)
+        print("If your piece surrounds a piece of the opposing colour, the piece will be flipped\n")
+        sleep(2)
+        print("Example:\n")        
+        print("|○||●||●||-|")
+        print("|○||○||○||○|")
+        sleep(2)
+        print("\nThis applies in all directions, including diagonals")
+        print("\nIn addition, a move is only valid when it flips over one or more pieces of the opposing side")
+        sleep(2)
+        print("\nIf you are unable to move, you may pass.")
+        print("However, the game will immediately end if a player chooses to pass right after the other player has done so.\n")
+        sleep(2)
+        
                 
 
 
@@ -451,12 +396,28 @@ print(y.gameEnd())
 print(y.user1Score)
 print(y.user2Score)'''
 
+'''
+x = Deck()
+y = gameControl()
+y.first = "abc"
+y.second = "bcd"
+y.board = x
+y.turn = "abc"
+y.turnCount = 3
 
+x.retrieveTile(2, 5).assignPiece("black")
+x.retrieveTile(1, 6).assignPiece("black")
+x.retrieveTile(5, 2).assignPiece("white")
+x.retrieveTile(6, 1).assignPiece("black")
+print(x)
 
-
-
-
-
+x.placePiece(0, 7, "white")
+print(x)
+y.save()
+y.retrieveSave()
+print(x)
+print(y.turn)
+'''
 
 
 

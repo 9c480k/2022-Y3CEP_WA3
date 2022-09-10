@@ -50,7 +50,7 @@ def checkUsername(username):
 
 def addUsername(username, password):
     accountDf.loc[username] = password 
-    dataDf.loc[username] = ['0', '0', '0', '0%']
+    dataDf.loc[username] = [0, 0, 0, 0]
 
 def checkPassword(username, password):
     correctPassword = accountDf.loc[username, "Password"]
@@ -69,12 +69,13 @@ def changeStoredStats(username, value):
     
 
     if value == "gw":
-        dataDf.loc[username, "Games Won"] += 1         
+        dataDf.loc[username, "Games Won"] += 1       
+
     elif value == "gl":
         dataDf.loc[username, "Games Lost"] += 1 
 
     
-    dataDf.loc[username, "Winrate"] = f'{floor((dataDf.loc[username, "Games Won"] / dataDf.loc[username, "Games Played"]) * 100)}%'
+    dataDf.loc[username, "Winrate(%)"] = floor((dataDf.loc[username, "Games Won"] / dataDf.loc[username, "Games Played"]) * 100)
    
 
 
@@ -84,7 +85,8 @@ def saveData():
     global statSheet
     global passwordSheet
 
-    dataDf.sort_values(by = 'Winrate', ascending = False)
+   
+    dataDf = dataDf.sort_values(by = 'Winrate(%)', ascending = False)    
     dataDf = dataDf.reset_index()
     accountDf = accountDf.reset_index()    
     set_with_dataframe(statSheet, dataDf, row = 1, col = 1, resize = True)

@@ -16,7 +16,7 @@ class saveStorer:
 
         with open("save.txt", "w") as file:             
             file.write(self.deck + "\n") 
-            file.write(f"{[user1, user2, turn]}\n")
+            file.write(f"{user1},{user2},{turn}\n")
             file.write(str(turnCount))
 
               
@@ -29,7 +29,7 @@ class saveStorer:
             if lines == []: 
                 return False 
     
-            self.output = [line.rstrip() for line in lines]
+            self.output = [line.rstrip() for line in lines]           
             
 
         with open("save.txt", "w") as file: 
