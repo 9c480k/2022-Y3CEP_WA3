@@ -4,10 +4,8 @@ from gspread_dataframe import set_with_dataframe
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd 
 from math import floor 
-import game
 
-'''side note here
-if all the imports are not working, using 'pip install gspread, gspread_dataframe, oauth2client, pandas' should work '''
+
 
 
 
@@ -86,6 +84,7 @@ def saveData():
     global statSheet
     global passwordSheet
 
+    dataDf.sort_values(by = 'Winrate', ascending = False)
     dataDf = dataDf.reset_index()
     accountDf = accountDf.reset_index()    
     set_with_dataframe(statSheet, dataDf, row = 1, col = 1, resize = True)
@@ -93,18 +92,11 @@ def saveData():
     refreshData()
 
 
-    
 
 
-refreshData()
-print(checkUsername('balls'))
-print(checkPassword('realitus', 'realitus1'))
-addUsername('balls2', 'balls21')
-changeStoredStats("balls", "gw")
-saveData()
 
 
-#local game save 
+
 
     
 

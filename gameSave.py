@@ -1,30 +1,43 @@
 class saveStorer:               
-    def saveGame(self, deck, user1, user2, turnCount):   
+
+    def saveGame(self, deck, user1, user2, turn, turnCount):   
         self.deck = []     
         for i in deck: 
             for j in i: 
-                self.deck.append(repr(j))
-        self.deck = self.deck.join("") 
-        print(self.deck)
+                if repr(j) == "|○|":
+                    self.deck.append("X")
+                elif repr(j) == "|●|":
+                    self.deck.append("O")
+                else: 
+                    self.deck.append(repr(j))
 
-        with open("save.txt", "w") as file: 
-            file.write(f"{self.deck}\n") 
-            file.write(f"{[user1, user2]}\n")
+        self.deck = ",".join(self.deck)
+        
+
+        with open("save.txt", "w") as file:             
+            file.write(self.deck + "\n") 
+            file.write(f"{[user1, user2, turn]}\n")
             file.write(str(turnCount))
+
+              
 
 
     def retrieveSave(self): 
         with open("save.txt", "r") as file: 
             lines = file.readlines()
+
+            if lines == []: 
+                return False 
+    
             self.output = [line.rstrip() for line in lines]
-            print(self.output)
             
 
+        with open("save.txt", "w") as file: 
+            file.write("")
 
-        if self.output == "": 
-            return False
-        else: 
-            return True 
 
-x = "hello"
-print(x[1])
+        
+        return True 
+
+
+    
