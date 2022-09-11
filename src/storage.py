@@ -14,7 +14,7 @@ scope = [
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/drive.file'
     ]
-file_name = './y3cep-wa3-othello-playerbase-b3b68340ee0c.json'
+file_name = 'src/y3cep-wa3-othello-playerbase-b3b68340ee0c.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(file_name,scope)
 
 client = gspread.authorize(credentials)

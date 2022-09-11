@@ -1,5 +1,5 @@
 
-import src.game as game
+import game
 import storage 
 
 

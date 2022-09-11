@@ -14,7 +14,7 @@ class saveStorer:
         self.deck = ",".join(self.deck) #makes the list of tiles into a string 
         
 
-        with open("save.txt", "w") as file:             
+        with open("src/save.txt", "w") as file:             
             file.write(self.deck + "\n") #stores the whole deck as one long string 
             file.write(f"{user1},{user2},{turn}\n") #stores other important information (1st user, 2nd user, which user's turn it is)
             file.write(str(turnCount)) #stores turnCount (important)
@@ -24,7 +24,7 @@ class saveStorer:
 
     def retrieveSave(self):  #for retrieving local save
 
-        with open("save.txt", "r") as file: 
+        with open("src/save.txt", "r") as file: 
             lines = file.readlines() #retrieves list of lines 
 
             if lines == []: #checks if save.txt is blank (meaning there is no save stored)
@@ -36,7 +36,7 @@ class saveStorer:
 
 
     def clearSave(self):
-        with open("save.txt", "w") as file: #deletes the save by making save.txt blank. This makes sure that the same game cannot be called up twice as a save
+        with open("src/save.txt", "w") as file: #deletes the save by making save.txt blank. This makes sure that the same game cannot be called up twice as a save
             file.write("")
 
     
