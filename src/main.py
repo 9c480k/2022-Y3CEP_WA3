@@ -109,7 +109,7 @@ currentPlayers = []
 
 
 print("Welcome to a game of Othello!")
-print("\nVisit README.md at https://github.com/9c480k/2022-Y3CEP_WA3/blob/main/documents/README.md for links to the playerbase log, as well as other useful information")
+print("\nVisit README.md at https://github.com/9c480k/2022-Y3CEP_WA3/blob/main/README.md for links to the playerbase log, as well as other useful information")
 print("\nProceeding to user login and registration...\n")
 for i in range(2):    #repeats twice for both players to login 
     while True: #checks whether user has an account
