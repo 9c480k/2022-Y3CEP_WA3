@@ -14,4 +14,4 @@ Playerbase Log: https://docs.google.com/spreadsheets/d/16bEhsl0PUWOVVEF6syeMbk54
 Account Management Log: https://docs.google.com/spreadsheets/d/1_WcaofWNbaiN8z1Wfh0VFOoR-bLsLYMTNiJWg1wfywI/edit#gid=971636175 (ideally should be kept private so that passwords arent leaked)
 
 
-To play the game, please run game.py 
+To play the game, please run game.py, and make sure to run "pip install pandas, gspread, gspread_dataframe, oauth2client" in the terminal 
